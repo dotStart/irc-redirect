@@ -1,0 +1,13 @@
+
++---------------------------------------------------------+
+|                   Insecure Connection                   |
++---------------------------------------------------------+
+| This server no longer supports plain text connections   |
+| via port 6667 and is thus unavailable via this address. |
+|                                                         |
+| We highly recommend that you switch to an SSL secured   |
+| port as outlined below.                                 |
+|                                                         |
+| Best Regards,                                           |
+| The Example Network Team                                |
++---------------------------------------------------------+
