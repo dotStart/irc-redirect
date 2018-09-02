@@ -1,0 +1,17 @@
+
++--------------------------------------------------------+
+|                     Server Closure                     |
++--------------------------------------------------------+
+| This server has been closed down and is no longer      |
+| available.                                             |
+|                                                        |
+| You may locate us over on Freenode:                    |
+|                                                        |
+|   Server: irc.freenode.net                             |
+|  Channel: #mychan                                      |
+|                                                        |
+| We apologize for any inconvenience.                    |
+|                                                        |
+| Best Regards,                                          |
+| The Example Network Team                               |
++--------------------------------------------------------+
