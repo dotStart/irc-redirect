@@ -25,12 +25,12 @@ import (
   "io/ioutil"
   "net"
   "os"
+  "strconv"
   "strings"
   "time"
 )
 
 const versionNumber = "0.1.0"
-const defaultTargetPort = 6697
 
 func main() {
   var help bool
@@ -38,16 +38,14 @@ func main() {
 
   var introductionFile string
   var serverName string
-  var targetHost string
-  var targetPort uint
+  var target string
 
   flag.BoolVar(&help, "help", false, "displays this help message")
   flag.BoolVar(&version, "version", false, "displays the application version number")
 
   flag.StringVar(&introductionFile, "introduction-file", "", "specifies a file to read an introduction (or explanation) message from")
   flag.StringVar(&serverName, "server-name", "irc.example.org", "specifies the server's display host name")
-  flag.StringVar(&targetHost, "target-host", "", "specifies the hostname to redirect to")
-  flag.UintVar(&targetPort, "target-port", defaultTargetPort, "specifies the port to redirect to")
+  flag.StringVar(&target, "target", "", "specifies the hostname to redirect to")
   flag.Parse()
 
   if help {
@@ -64,6 +62,24 @@ func main() {
     fmt.Fprintf(os.Stderr, "error: at least one listener is required\n\n")
     printUsage(os.Stderr)
     os.Exit(1)
+  }
+
+  var targetHost string
+  var targetPort uint16
+  if target != "" {
+    i := strings.IndexRune(target, ':')
+    if i != -1 {
+      targetHost = target[:i]
+      if port, err := strconv.ParseUint(target[i+1:], 10, 16); err == nil {
+        targetPort = uint16(port)
+      } else {
+        fmt.Fprintf(os.Stderr, "error: illegal target server port: %s", err)
+        os.Exit(1)
+      }
+    } else {
+      targetHost = target
+      targetPort = 6667
+    }
   }
 
   var introduction []string
@@ -103,7 +119,7 @@ func main() {
             conn.Write([]byte(fmt.Sprintf(":%s NOTICE * :%s\r\n", serverName, l)))
           }
 
-          if targetHost != "" {
+          if target != "" {
             log.Default().Debug("redirecting client", "client", conn.RemoteAddr(), "target", fmt.Sprintf("%s:%d", targetHost, targetPort))
             conn.Write([]byte(fmt.Sprintf(":%s 010 * %s %d :Port redirect\r\n", serverName, targetHost, targetPort)))
           }
