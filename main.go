@@ -111,6 +111,7 @@ func main() {
             conn.Write([]byte(fmt.Sprintf(":%s NOTICE * :%s\r\n", serverName, l)))
           }
           conn.Write([]byte(fmt.Sprintf(":%s 010 * %s %d :Port redirect\r\n", serverName, target, targetPort)))
+          conn.Write([]byte(fmt.Sprintf("ERROR :This port is unavailable\r\n")))
 
           time.Sleep(time.Second)
         }()
