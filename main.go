@@ -108,9 +108,9 @@ func main() {
 
           log.Default().Debug("redirecting client", "client", conn.RemoteAddr(), "target", fmt.Sprintf("%s:%d", target, targetPort))
           for _, l := range introduction {
-            conn.Write([]byte(fmt.Sprintf(":%s NOTICE * :%s\n", serverName, l)))
+            conn.Write([]byte(fmt.Sprintf(":%s NOTICE * :%s\r\n", serverName, l)))
           }
-          conn.Write([]byte(fmt.Sprintf(":%s 005 * :Try server %s, port %d\n", serverName, target, targetPort)))
+          conn.Write([]byte(fmt.Sprintf(":%s 010 * %s %d :Port redirect\r\n", serverName, target, targetPort)))
 
           time.Sleep(time.Second)
         }()
