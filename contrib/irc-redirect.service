@@ -1,0 +1,10 @@
+[Unit]
+Description=IRC Redirection Service
+After=syslog.target network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/irc-redirect
+
+[Install]
+WantedBy=multi-user.target
