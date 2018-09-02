@@ -15,7 +15,7 @@ Available Flags:
   
 For instance:
 
-  $ irc-redirect -introduction-file=intro.txt -server-name=irc.example.org -target-host=irc.freenode.net -target-port=6669 0.0.0.0:6667
+  $ irc-redirect -introduction-file=intro.txt -server-name=irc.example.org -target=irc.freenode.net:6669 0.0.0.0:6667
   
 Which will redirect all clients which connect via port 6667 (on all interfaces) to
 irc.freenode.net on port 6669.
