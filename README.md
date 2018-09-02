@@ -11,8 +11,7 @@ Available Flags:
 
   -introduction-file        specifies a file to read an introduction (or explanation) message from
   -server-name              specifies the server's display host name
-  -target-host              specifies the hostname to redirect to
-  -target-port              specifies the port to redirect to
+  -target                   specifies the target server
   
 For instance:
 

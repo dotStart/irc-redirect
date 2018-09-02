@@ -45,7 +45,7 @@ func main() {
 
   flag.StringVar(&introductionFile, "introduction-file", "", "specifies a file to read an introduction (or explanation) message from")
   flag.StringVar(&serverName, "server-name", "irc.example.org", "specifies the server's display host name")
-  flag.StringVar(&target, "target", "", "specifies the hostname to redirect to")
+  flag.StringVar(&target, "target", "", "specifies the target server")
   flag.Parse()
 
   if help {
@@ -150,6 +150,6 @@ func printUsage(w io.Writer) {
     }
   })
   fmt.Fprint(w, "For instance:\n\n", )
-  fmt.Fprintf(w, "  $ %s -introduction-file=intro.txt -server-name=irc.example.org -target-host=irc.freenode.net -target-port=6669 0.0.0.0:6667\n\n", os.Args[0])
+  fmt.Fprintf(w, "  $ %s -introduction-file=intro.txt -server-name=irc.example.org -target=irc.freenode.net:6669 0.0.0.0:6667\n\n", os.Args[0])
   fmt.Fprint(w, "Which will redirect all clients which connect via port 6667 (on all interfaces) to irc.freenode.net on port 6669.\n")
 }
