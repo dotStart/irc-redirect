@@ -98,21 +98,17 @@ func main() {
         go func() {
           defer conn.Close()
 
-          target := targetHost
-          if target == "" {
-            target = conn.LocalAddr().String()
-
-            i := strings.IndexRune(target, ':')
-            target = target[:i]
-          }
-
-          log.Default().Debug("redirecting client", "client", conn.RemoteAddr(), "target", fmt.Sprintf("%s:%d", target, targetPort))
+          log.Default().Debug("sending introduction", "client", conn.RemoteAddr())
           for _, l := range introduction {
             conn.Write([]byte(fmt.Sprintf(":%s NOTICE * :%s\r\n", serverName, l)))
           }
-          conn.Write([]byte(fmt.Sprintf(":%s 010 * %s %d :Port redirect\r\n", serverName, target, targetPort)))
-          conn.Write([]byte(fmt.Sprintf("ERROR :This port is unavailable\r\n")))
 
+          if targetHost != "" {
+            log.Default().Debug("redirecting client", "client", conn.RemoteAddr(), "target", fmt.Sprintf("%s:%d", targetHost, targetPort))
+            conn.Write([]byte(fmt.Sprintf(":%s 010 * %s %d :Port redirect\r\n", serverName, targetHost, targetPort)))
+          }
+
+          conn.Write([]byte("ERROR :This service is unavailable\r\n"))
           time.Sleep(time.Second)
         }()
       }
