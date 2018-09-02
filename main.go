@@ -30,7 +30,7 @@ import (
   "time"
 )
 
-const versionNumber = "0.1.0"
+const versionNumber = "0.2.0"
 
 func main() {
   var help bool
